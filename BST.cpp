@@ -39,7 +39,7 @@ void postOrder(Node* root) { //Left->Right->Root
     postOrder(root->right);
     cout<<root->data<<" ";
 }
-
+// Insert Node
 Node* insertion(Node* root, int value) {
     if(root == NULL) return new Node(value);
     if(value < root->data) root->left = insertion(root->left, value);
@@ -50,7 +50,7 @@ Node* insertion(Node* root, int value) {
 void insert(int value) {
     root = insertion(root, value);
 }
-
+// Delete Node
 void deletion(Node* root) {
     if(!root) return;
     deletion(root->left);
@@ -105,4 +105,7 @@ int main() {
     preOrder(root);
     cout<<endl;
     postOrder(root);
+    deleteNode(root, 20);
+    cout<<endl;
+    inOrder(root);
 }
