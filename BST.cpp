@@ -1,3 +1,13 @@
+/*
+    Binary Search Tree :
+        Traversal:
+            *Inorder
+            *Preorder
+            *Postorder
+        Insertion
+        Deletion
+*/
+
 #include<iostream>
 using namespace std;
 
@@ -42,7 +52,10 @@ void insert(int value) {
 }
 
 void deletion(Node* root) {
-
+    if(!root) return;
+    deletion(root->left);
+    deletion(root->right);
+    delete root;
 }
 
 void deleteNode(Node* root, int value) {
@@ -64,9 +77,17 @@ void deleteNode(Node* root, int value) {
         }
         else {
             Node* temp = root->right;
-            
+            while(temp->left) {
+                temp = temp->left;
+            }
+            root->data = temp->data;
+            deleteNode(root->right, temp->data);
         }
     }
+    else if(value > root->data) {
+        deleteNode(root->right, value);
+    }
+    else deleteNode(root->left, value);
 }
 
 int main() {
