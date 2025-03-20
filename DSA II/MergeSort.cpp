@@ -1,18 +1,18 @@
 #include <iostream>
 using namespace std;
 
-void merge(int arr[], int p, int q, int r) {
-  int n1 = q - p + 1;
-  int n2 = r - q;
+void merge(int arr[], int left, int mid, int right) {
+  int n1 = mid - left + 1;
+  int n2 = right - mid;
   
   int L[n1];
   int M[n2];
   
-  for (int i = 0; i < n1; i++)  L[i] = arr[p + i];
+  for (int i = 0; i < n1; i++)  L[i] = arr[left + i];
+
+  for (int j = 0; j < n2; j++)  M[j] = arr[mid + 1 + j];
     
-  for (int j = 0; j < n2; j++)  M[j] = arr[q + 1 + j];
-    
-  int i = 0, j = 0, k = p;
+  int i = 0, j = 0, k = left;
   
   while (i < n1 && j < n2) {
     if (L[i] <= M[j]) {
@@ -37,13 +37,13 @@ void merge(int arr[], int p, int q, int r) {
     k++;
   }
 }
-void mergeSort(int arr[], int l, int r) {
-  if (l < r) {
-    int m = l + (r - l) / 2;
+void mergeSort(int arr[], int l, int right) {
+  if (l < right) {
+    int m = l + (right - l) / 2;
     
     mergeSort(arr, l, m);
-    mergeSort(arr, m + 1, r);
-    merge(arr, l, m, r);
+    mergeSort(arr, m + 1, right);
+    merge(arr, l, m, right);
   }
 }
 
