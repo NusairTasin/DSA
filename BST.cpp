@@ -17,7 +17,7 @@ struct Node {
     Node* right;
     Node(int value) :data(value), left(NULL), right(NULL) {}
 };
-Node* root;
+Node* root = NULL;
 
 void inOrder(Node* root) {  //Left->Root->Right
     if(root == NULL) return;
@@ -90,6 +90,19 @@ void deleteNode(Node* root, int value) {
     else deleteNode(root->left, value);
 }
 
+//Search Node
+Node* searchRecursive(Node* root, int data) {
+    if (root == NULL || root->data == data) return root;
+    if (root->data > data) return searchRecursive(root->left, data);
+    else return searchRecursive(root->right, data);
+}
+void search(int data) {
+    Node* result = searchRecursive(root, data);
+    if (result != NULL) cout << "Found!" << endl;
+    else cout << "Not found!" << endl;
+
+}
+
 int main() {
     // root = new Node(50);
     // root->left = new Node(20);
@@ -108,4 +121,6 @@ int main() {
     deleteNode(root, 20);
     cout<<endl;
     inOrder(root);
+    cout<<endl;
+    search(50);
 }
