@@ -12,22 +12,32 @@ bool compare(Edge a, Edge b) {
 }
 
 int findParent(int node, vector<int> &parent) {
-    if(parent[node] == -1) 
-        return node;
-    return findParent(parent[node], parent);
+    if(parent[node] != node) {
+        parent[node] = findParent(parent[node], parent);
+    }
+    return parent[node];
 }
 
-void unionSets(int u, int v, vector<int> &parent) {
+void unionSets(int u, int v, vector<int> &parent, vector<int> &rank) {
     int parentU = findParent(u, parent);
     int parentV = findParent(v, parent);
-    parent[parentU] = parentV;
+    
+    if(parentU == parentV) return;
+    if(rank[parentU] < rank[parentV]) parent[parentU] = parentV;
+    else if(rank[parentU] > rank[parentV]) parent[parentV] = parentU;
+    else {
+        parent[parentV] = parentU;
+        rank[parentU]++;
+    }
 }
 
 void kruskalAlgo(int V, vector<Edge> &edges) {
     sort(edges.begin(), edges.end(), compare);
 
-    vector<int> parent(V, -1);
+    vector<int> parent(V);
+    vector<int> rank(V, 0);
     vector<Edge> mst;
+    for(int i = 0; i < V; i++) parent[i] = i;
     int totalWeight = 0;
 
     for(Edge e : edges) {
@@ -37,7 +47,7 @@ void kruskalAlgo(int V, vector<Edge> &edges) {
         if(pu != pv) {
             mst.push_back(e);
             totalWeight += e.weight;
-            unionSets(pu, pv, parent);
+            unionSets(pu, pv, parent, rank);
         }
     }
 
