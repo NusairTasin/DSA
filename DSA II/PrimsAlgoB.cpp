@@ -8,7 +8,7 @@ int wght = 0;
 
 int minWeight(int weight[], bool visited[]){
     int minimum = INT_MAX;
-    int min_index; 
+    int min_index = -1; 
     for(int i = 0; i < V; i++){
         if(visited[i] == false and weight[i] < minimum){
             minimum = weight[i];

@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void bellman(vector<vector<pair<int, int>>> &graph, vector<int> &d, vector<int> &p) {
+void bellman(vector<vector<pair<int, int>>> &graph, vector<int> &d) {
     int V = graph.size();
     d.assign(V, INT_MAX);
     d[0] = 0;
@@ -55,7 +55,7 @@ int main() {
         graph[u].push_back({v, w});
     }
 
-    bellman(graph, d, p);
+    bellman(graph, d);
 }
 
 // Check for output:
